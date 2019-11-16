@@ -1,0 +1,8 @@
+version: '2.1'
+
+services:
+  mongodb-replication:
+    image: mongodb-replication
+    build: .
+    ports:
+      - 29017:29017

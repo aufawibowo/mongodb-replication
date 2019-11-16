@@ -1,0 +1,10 @@
+version: '2.1'
+
+services:
+  mongodb-replication:
+    image: mongodb-replication
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 29017:29017
