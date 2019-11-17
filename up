@@ -1,1 +1,2 @@
-# ada
+echo "Running docker-compose up to build docker image and containers"
+docker-compose up -d

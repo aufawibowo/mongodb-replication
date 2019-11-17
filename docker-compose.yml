@@ -7,10 +7,10 @@ networks:
       config:
         - subnet: 172.1.1.0/28
 
-volumes:
-  data-server-1-volume:
-  data-server-2-volume:
-  data-server-3-volume:
+# volumes:
+#   data-server-1-volume:
+#   data-server-2-volume:
+#   data-server-3-volume:
 
 services:
   router:

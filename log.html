@@ -1,0 +1,112 @@
+<pre><font color="#8AE234"><b>aufawibowo@aufawibowo-VBox</b></font>:<font color="#729FCF"><b>~</b></font>$ docker ps
+    CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                      NAMES
+    315c69fb5af0        bdt19/mongo:4.2.1   &quot;docker-entrypoint.s…&quot;   17 seconds ago      Up 12 seconds       27017/tcp                  shard4
+    f0defc6ad1d2        bdt19/mongo:4.2.1   &quot;docker-entrypoint.s…&quot;   17 seconds ago      Up 14 seconds       27017/tcp                  shard1
+    5502f4b0f6dc        bdt19/mongo:4.2.1   &quot;docker-entrypoint.s…&quot;   17 seconds ago      Up 13 seconds       27017/tcp                  shard5
+    47116c45acde        bdt19/mongo:4.2.1   &quot;docker-entrypoint.s…&quot;   17 seconds ago      Up 12 seconds       27017/tcp                  shard3
+    8eab6ca06d2a        bdt19/mongo:4.2.1   &quot;docker-entrypoint.s…&quot;   17 seconds ago      Up 14 seconds       27017/tcp                  config2
+    7a48214468a6        bdt19/mongo:4.2.1   &quot;docker-entrypoint.s…&quot;   17 seconds ago      Up 13 seconds       27017/tcp                  shard2
+    65370f9c5b54        bdt19/mongo:4.2.1   &quot;docker-entrypoint.s…&quot;   17 seconds ago      Up 15 seconds       27017/tcp                  config1
+    6cfead1d8ecf        bdt19/mongo:4.2.1   &quot;docker-entrypoint.s…&quot;   18 seconds ago      Up 11 seconds       0.0.0.0:27017-&gt;27017/tcp   router
+    <font color="#8AE234"><b>aufawibowo@aufawibowo-VBox</b></font>:<font color="#729FCF"><b>~</b></font>$ cd bdt
+    bash: cd: bdt: No such file or directory
+    <font color="#8AE234"><b>aufawibowo@aufawibowo-VBox</b></font>:<font color="#729FCF"><b>~</b></font>$ cd bdt19/
+    <font color="#8AE234"><b>aufawibowo@aufawibowo-VBox</b></font>:<font color="#729FCF"><b>~/bdt19</b></font>$ cd mongo-sharding/
+    <font color="#8AE234"><b>aufawibowo@aufawibowo-VBox</b></font>:<font color="#729FCF"><b>~/bdt19/mongo-sharding</b></font>$ docker exec config1 mongo --port 27019 scripts/init-configserver.js
+    MongoDB shell version v4.2.1
+    connecting to: mongodb://127.0.0.1:27019/?compressors=disabled&amp;gssapiServiceName=mongodb
+    Implicit session: session { &quot;id&quot; : UUID(&quot;c9d5b471-c199-4ba0-8271-b3f8263b9949&quot;) }
+    MongoDB server version: 4.2.1
+    <font color="#8AE234"><b>aufawibowo@aufawibowo-VBox</b></font>:<font color="#729FCF"><b>~/bdt19/mongo-sharding</b></font>$ docker exec shard1 mongo --port 27018 scripts/init-shard.js
+    MongoDB shell version v4.2.1
+    connecting to: mongodb://127.0.0.1:27018/?compressors=disabled&amp;gssapiServiceName=mongodb
+    Implicit session: session { &quot;id&quot; : UUID(&quot;f911a4fe-270e-4e95-876d-b4075db924c9&quot;) }
+    MongoDB server version: 4.2.1
+    <font color="#8AE234"><b>aufawibowo@aufawibowo-VBox</b></font>:<font color="#729FCF"><b>~/bdt19/mongo-sharding</b></font>$ docker exec shard2 mongo --port 27018 scripts/init-shard.js
+    MongoDB shell version v4.2.1
+    connecting to: mongodb://127.0.0.1:27018/?compressors=disabled&amp;gssapiServiceName=mongodb
+    Implicit session: session { &quot;id&quot; : UUID(&quot;5150c8b8-d683-4a51-b38b-7d8bc796abd0&quot;) }
+    MongoDB server version: 4.2.1
+    <font color="#8AE234"><b>aufawibowo@aufawibowo-VBox</b></font>:<font color="#729FCF"><b>~/bdt19/mongo-sharding</b></font>$ docker exec shard3 mongo --port 27018 scripts/init-shard.js
+    MongoDB shell version v4.2.1
+    connecting to: mongodb://127.0.0.1:27018/?compressors=disabled&amp;gssapiServiceName=mongodb
+    Implicit session: session { &quot;id&quot; : UUID(&quot;54e2e217-359b-4bea-971f-bd9c9ed58558&quot;) }
+    MongoDB server version: 4.2.1
+    <font color="#8AE234"><b>aufawibowo@aufawibowo-VBox</b></font>:<font color="#729FCF"><b>~/bdt19/mongo-sharding</b></font>$ docker exec shard4 mongo --port 27018 scripts/init-shard.js
+    MongoDB shell version v4.2.1
+    connecting to: mongodb://127.0.0.1:27018/?compressors=disabled&amp;gssapiServiceName=mongodb
+    Implicit session: session { &quot;id&quot; : UUID(&quot;d31ddffb-4c16-4b84-a585-79a876d939ce&quot;) }
+    MongoDB server version: 4.2.1
+    <font color="#8AE234"><b>aufawibowo@aufawibowo-VBox</b></font>:<font color="#729FCF"><b>~/bdt19/mongo-sharding</b></font>$ docker exec shard5 mongo --port 27018 scripts/init-shard.js
+    MongoDB shell version v4.2.1
+    connecting to: mongodb://127.0.0.1:27018/?compressors=disabled&amp;gssapiServiceName=mongodb
+    Implicit session: session { &quot;id&quot; : UUID(&quot;2ea5b00c-cf75-4fe7-9c31-db01c6a60493&quot;) }
+    MongoDB server version: 4.2.1
+    <font color="#8AE234"><b>aufawibowo@aufawibowo-VBox</b></font>:<font color="#729FCF"><b>~/bdt19/mongo-sharding</b></font>$ docker exec router mongo scripts/init-router.js
+    MongoDB shell version v4.2.1
+    connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&amp;gssapiServiceName=mongodb
+    Implicit session: session { &quot;id&quot; : UUID(&quot;3eb30e26-ff8a-4420-b97b-c7b594117ed7&quot;) }
+    MongoDB server version: 4.2.1
+    <font color="#8AE234"><b>aufawibowo@aufawibowo-VBox</b></font>:<font color="#729FCF"><b>~/bdt19/mongo-sharding</b></font>$ docker ps
+    CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                      NAMES
+    315c69fb5af0        bdt19/mongo:4.2.1   &quot;docker-entrypoint.s…&quot;   6 minutes ago       Up 5 minutes        27017/tcp                  shard4
+    f0defc6ad1d2        bdt19/mongo:4.2.1   &quot;docker-entrypoint.s…&quot;   6 minutes ago       Up 5 minutes        27017/tcp                  shard1
+    5502f4b0f6dc        bdt19/mongo:4.2.1   &quot;docker-entrypoint.s…&quot;   6 minutes ago       Up 5 minutes        27017/tcp                  shard5
+    47116c45acde        bdt19/mongo:4.2.1   &quot;docker-entrypoint.s…&quot;   6 minutes ago       Up 5 minutes        27017/tcp                  shard3
+    8eab6ca06d2a        bdt19/mongo:4.2.1   &quot;docker-entrypoint.s…&quot;   6 minutes ago       Up 5 minutes        27017/tcp                  config2
+    7a48214468a6        bdt19/mongo:4.2.1   &quot;docker-entrypoint.s…&quot;   6 minutes ago       Up 5 minutes        27017/tcp                  shard2
+    65370f9c5b54        bdt19/mongo:4.2.1   &quot;docker-entrypoint.s…&quot;   6 minutes ago       Up 5 minutes        27017/tcp                  config1
+    6cfead1d8ecf        bdt19/mongo:4.2.1   &quot;docker-entrypoint.s…&quot;   6 minutes ago       Up 5 minutes        0.0.0.0:27017-&gt;27017/tcp   router
+    <font color="#8AE234"><b>aufawibowo@aufawibowo-VBox</b></font>:<font color="#729FCF"><b>~/bdt19/mongo-sharding</b></font>$ docker exec -it shard1 /bin/bash
+    root@shard1:/# mongod
+    2019-11-17T06:56:11.615+0000 I  CONTROL  [main] Automatically disabling TLS 1.0, to force-enable TLS 1.0 specify --sslDisabledProtocols &apos;none&apos;
+    2019-11-17T06:56:11.617+0000 I  CONTROL  [initandlisten] MongoDB starting : pid=137 port=27017 dbpath=/data/db 64-bit host=shard1
+    2019-11-17T06:56:11.617+0000 I  CONTROL  [initandlisten] db version v4.2.1
+    2019-11-17T06:56:11.617+0000 I  CONTROL  [initandlisten] git version: edf6d45851c0b9ee15548f0f847df141764a317e
+    2019-11-17T06:56:11.617+0000 I  CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.1.1  11 Sep 2018
+    2019-11-17T06:56:11.617+0000 I  CONTROL  [initandlisten] allocator: tcmalloc
+    2019-11-17T06:56:11.617+0000 I  CONTROL  [initandlisten] modules: none
+    2019-11-17T06:56:11.617+0000 I  CONTROL  [initandlisten] build environment:
+    2019-11-17T06:56:11.617+0000 I  CONTROL  [initandlisten]     distmod: ubuntu1804
+    2019-11-17T06:56:11.617+0000 I  CONTROL  [initandlisten]     distarch: x86_64
+    2019-11-17T06:56:11.617+0000 I  CONTROL  [initandlisten]     target_arch: x86_64
+    2019-11-17T06:56:11.618+0000 I  CONTROL  [initandlisten] options: {}
+    2019-11-17T06:56:11.619+0000 I  STORAGE  [initandlisten] exception in initAndListen: DBPathInUse: Unable to lock the lock file: /data/db/mongod.lock (Resource temporarily unavailable). Another mongod instance is already running on the /data/db directory, terminating
+    2019-11-17T06:56:11.619+0000 I  NETWORK  [initandlisten] shutdown: going to close listening sockets...
+    2019-11-17T06:56:11.619+0000 I  NETWORK  [initandlisten] removing socket file: /tmp/mongodb-27017.sock
+    2019-11-17T06:56:11.619+0000 I  -        [initandlisten] Stopping further Flow Control ticket acquisitions.
+    2019-11-17T06:56:11.619+0000 I  CONTROL  [initandlisten] now exiting
+    2019-11-17T06:56:11.619+0000 I  CONTROL  [initandlisten] shutting down with code:100
+    root@shard1:/# mongodb 
+    bash: mongodb: command not found
+    root@shard1:/# mongo
+    MongoDB shell version v4.2.1
+    connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&amp;gssapiServiceName=mongodb
+    2019-11-17T06:56:25.992+0000 E  QUERY    [js] Error: couldn&apos;t connect to server 127.0.0.1:27017, connection attempt failed: SocketException: Error connecting to 127.0.0.1:27017 :: caused by :: Connection refused :
+    connect@src/mongo/shell/mongo.js:341:17
+    @(connect):2:6
+    2019-11-17T06:56:25.995+0000 F  -        [main] exception: connect failed
+    2019-11-17T06:56:25.995+0000 E  -        [main] exiting with code 1
+    root@shard1:/# mongod
+    2019-11-17T06:56:39.933+0000 I  CONTROL  [main] Automatically disabling TLS 1.0, to force-enable TLS 1.0 specify --sslDisabledProtocols &apos;none&apos;
+    2019-11-17T06:56:39.943+0000 I  CONTROL  [initandlisten] MongoDB starting : pid=147 port=27017 dbpath=/data/db 64-bit host=shard1
+    2019-11-17T06:56:39.943+0000 I  CONTROL  [initandlisten] db version v4.2.1
+    2019-11-17T06:56:39.943+0000 I  CONTROL  [initandlisten] git version: edf6d45851c0b9ee15548f0f847df141764a317e
+    2019-11-17T06:56:39.943+0000 I  CONTROL  [initandlisten] OpenSSL version: OpenSSL 1.1.1  11 Sep 2018
+    2019-11-17T06:56:39.943+0000 I  CONTROL  [initandlisten] allocator: tcmalloc
+    2019-11-17T06:56:39.943+0000 I  CONTROL  [initandlisten] modules: none
+    2019-11-17T06:56:39.943+0000 I  CONTROL  [initandlisten] build environment:
+    2019-11-17T06:56:39.943+0000 I  CONTROL  [initandlisten]     distmod: ubuntu1804
+    2019-11-17T06:56:39.943+0000 I  CONTROL  [initandlisten]     distarch: x86_64
+    2019-11-17T06:56:39.943+0000 I  CONTROL  [initandlisten]     target_arch: x86_64
+    2019-11-17T06:56:39.943+0000 I  CONTROL  [initandlisten] options: {}
+    2019-11-17T06:56:39.944+0000 I  STORAGE  [initandlisten] exception in initAndListen: DBPathInUse: Unable to lock the lock file: /data/db/mongod.lock (Resource temporarily unavailable). Another mongod instance is already running on the /data/db directory, terminating
+    2019-11-17T06:56:39.944+0000 I  NETWORK  [initandlisten] shutdown: going to close listening sockets...
+    2019-11-17T06:56:39.944+0000 I  NETWORK  [initandlisten] removing socket file: /tmp/mongodb-27017.sock
+    2019-11-17T06:56:39.944+0000 I  -        [initandlisten] Stopping further Flow Control ticket acquisitions.
+    2019-11-17T06:56:39.944+0000 I  CONTROL  [initandlisten] now exiting
+    2019-11-17T06:56:39.944+0000 I  CONTROL  [initandlisten] shutting down with code:100
+    root@shard1:/# exit
+    exit
+    <font color="#8AE234"><b>aufawibowo@aufawibowo-VBox</b></font>:<font color="#729FCF"><b>~/bdt19/mongo-sharding</b></font>$ 
+    </pre>
