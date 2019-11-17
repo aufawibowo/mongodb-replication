@@ -1,8 +1,28 @@
-version: '2.1'
+version: '3'
+
+networks:
+  mongodb-replication-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.1.1.0/28
+
+volumes:
+  data-server-1-volume:
+  data-server-2-volume:
+  data-server-3-volume:
 
 services:
-  mongodb-replication:
-    image: mongodb-replication
-    build: .
+  router:
+    image: router/mongo:4.2.1
+    container_name: router
+    hostname: router
+    command: mongos --configdb rs-config-server/config1:27019,config2:27019 --bind_ip_all
     ports:
-      - 29017:29017
+      - 27017:27017
+    networks:
+      mongodb-replication-network:
+        ipv4_address: 172.1.1.2
+  
+  config-server-1:
+    image: config-server-1/mongo:4.2.1
