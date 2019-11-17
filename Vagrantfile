@@ -1,90 +1,43 @@
-# -*- mode: ruby -*-
-# vi: set ft=ruby :
-
 Vagrant.configure("2") do |config|
 
-  config.vm.define "mongo_config_1" do |mongo_config_1|
-    mongo_config_1.vm.hostname = "mongo-config-1"
-    mongo_config_1.vm.box = "bento/ubuntu-18.04"
-    mongo_config_1.vm.network "private_network", ip: "192.168.33.11"
-    
-    mongo_config_1.vm.provider "virtualbox" do |vb|
-      vb.name = "mongo-config-1"
-      vb.gui = false
-      vb.memory = "1024"
+  (1..2).each do |i|
+    config.vm.define "mongo_config_#{i}" do |set|
+        set.vm.hostname = "mongo-config-#{i}"
+        set.vm.box = "bento/ubuntu-18.04"
+        set.vm.network "private_network", ip: "192.168.212.#{i+1}"
+        set.vm.provider "virtualbox" do |vb|
+          vb.name = "config-#{i}"
+          vb.gui = false
+          vb.memory = "1024"
+        end
+        set.vm.provision "shell", path: "provision/config-server-#{i}.sh", privileged: false
     end
-
-    mongo_config_1.vm.provision "shell", path: "provision/allhosts.sh", privileged: false
   end
 
-  config.vm.define "mongo_config_2" do |mongo_config_2|
-    mongo_config_2.vm.hostname = "mongo-config-2"
-    mongo_config_2.vm.box = "bento/ubuntu-18.04"
-    mongo_config_2.vm.network "private_network", ip: "192.168.33.12"
-    
-    mongo_config_2.vm.provider "virtualbox" do |vb|
-      vb.name = "mongo-config-2"
-      vb.gui = false
-      vb.memory = "1024"
+  (1..3).each do |i|
+    config.vm.define "mongo_shard_#{i}" do |set|
+        set.vm.hostname = "mongo-shard-#{i}"
+        set.vm.box = "bento/ubuntu-18.04"
+        set.vm.network "private_network", ip: "192.168.212.#{3+i}"
+        set.vm.provider "virtualbox" do |vb|
+          vb.name = "shard-#{i}"
+          vb.gui = false
+          vb.memory = "1024"
+        end
+        set.vm.provision "shell", path: "provision/mongo-shard-#{i}.sh", privileged: false
     end
-
-    mongo_config_2.vm.provision "shell", path: "provision/allhosts.sh", privileged: false
   end
 
-  config.vm.define "mongo_config_3" do |mongo_config_3|
-    mongo_config_3.vm.hostname = "mongo-config-3"
-    mongo_config_3.vm.box = "bento/ubuntu-18.04"
-    mongo_config_3.vm.network "private_network", ip: "192.168.33.13"
-    
-    mongo_config_3.vm.provider "virtualbox" do |vb|
-      vb.name = "mongo-config-3"
+  config.vm.define "router" do |set|
+    set.vm.hostname = "router"
+    set.vm.box = "bento/ubuntu-18.04"
+    set.vm.network "private_network", ip: "192.168.212.7"
+    set.vm.provider "virtualbox" do |vb|
+      vb.name = "router"
       vb.gui = false
       vb.memory = "1024"
     end
-
-    mongo_config_3.vm.provision "shell", path: "provision/allhosts.sh", privileged: false
-  end
-
-  config.vm.define "mongo_query_router" do |mongo_query_router|
-    mongo_query_router.vm.hostname = "mongo-query-router"
-    mongo_query_router.vm.box = "bento/ubuntu-18.04"
-    mongo_query_router.vm.network "private_network", ip: "192.168.33.14"
-    
-    mongo_query_router.vm.provider "virtualbox" do |vb|
-      vb.name = "mongo-query-router"
-      vb.gui = false
-      vb.memory = "1024"
-    end
-
-    mongo_query_router.vm.provision "shell", path: "provision/allhosts.sh", privileged: false
-  end
-
-  config.vm.define "mongo_shard_1" do |mongo_shard_1|
-    mongo_shard_1.vm.hostname = "mongo-shard-1"
-    mongo_shard_1.vm.box = "bento/ubuntu-18.04"
-    mongo_shard_1.vm.network "private_network", ip: "192.168.33.15"
-        
-    mongo_shard_1.vm.provider "virtualbox" do |vb|
-      vb.name = "mongo-shard-1"
-      vb.gui = false
-      vb.memory = "1024"
-    end
-
-    mongo_shard_1.vm.provision "shell", path: "provision/allhosts.sh", privileged: false
-  end
-
-  config.vm.define "mongo_shard_2" do |mongo_shard_2|
-    mongo_shard_2.vm.hostname = "mongo-shard-2"
-    mongo_shard_2.vm.box = "bento/ubuntu-18.04"
-    mongo_shard_2.vm.network "private_network", ip: "192.168.33.16"
-    
-    mongo_shard_2.vm.provider "virtualbox" do |vb|
-      vb.name = "mongo-shard-2"
-      vb.gui = false
-      vb.memory = "1024"
-    end
-
-    mongo_shard_2.vm.provision "shell", path: "provision/allhosts.sh", privileged: false
+    set.vm.provision "shell", path: "provision/router.sh", privileged: false
   end
 
 end
