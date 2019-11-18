@@ -1,6 +1,6 @@
-192.168.212.2 mongo-config-1
-192.168.212.3 mongo-config-2
-192.168.212.4 mongo-shard-1
-192.168.212.5 mongo-shard-2
-192.168.212.6 mongo-shard-3
+192.168.212.2 config-1
+192.168.212.3 config-2
+192.168.212.4 shard-1
+192.168.212.5 shard-2
+192.168.212.6 shard-3
 192.168.212.7 router
