@@ -23,6 +23,8 @@ MongoDB mendukung penskalaan horizontal melalui sharding.
     - 3 shard server
     - 1 query router
 
+[!gambar](img/main.jpg)
+
 ## Konfigurasi
 1. Config Server
    - OS: `bento/ubuntu-18.04`
