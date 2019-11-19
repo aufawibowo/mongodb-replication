@@ -51,13 +51,16 @@ MongoDB mendukung penskalaan horizontal melalui sharding.
         `vagrant ssh mongo_config_1`
    2. Shell
         `mongo mongo-config-1:27019`
+    ![gambar](img/1.JPG)
    3. Masukkan replica set
         `rs.initiate( { _id: "configReplSet", configsvr: true, members: [ { _id: 0, host: "mongo-config-1:27019" }, { _id: 1, host: "mongo-config-2:27019" }] } )`
+        ![gambar](img/2.JPG)
 2. Menambah shard server ke cluser
    1. Keluar dari `SECONDARY`
    `exit`
    2. Gunakan db `admin`
    `use admin`
+       ![gambar](img/4.JPG)
    3. Membuat user
    `db.createUser({user: "mongo-admin", pwd: "password", roles:[{role: "root", db: "admin"}]})`
 3. Menambah shard ke dalam Cluster
@@ -65,17 +68,20 @@ MongoDB mendukung penskalaan horizontal melalui sharding.
    `vagrant ssh mong_shard_1`
    2. Hubungkan dengan Query Router
    `mongo router:27017 -u mongo-admin -p --authenticationDatabase admin`
+       ![gambar](img/5.JPG)
    3. Tambahkan shard
    ```
     sh.addShard( "shard-1:27017" )
     sh.addShard( "shard-2:27017" )
     sh.addShard( "shard-3:27017" )
    ```
+    ![gambar](img/6.JPG)
 4. Mengaktifkan sharding
     1. Masuk ke router
    `vagrant ssh router`
     2. Connect ke MongoDB
    `mongo router:27017 -u mongo-admin -p --authenticationDatabase admin`
+       ![gambar](img/8.JPG)
     3. Buat collection di mongodb
 
 # Import Dataset
